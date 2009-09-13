@@ -1,0 +1,746 @@
+-- phpMyAdmin SQL Dump
+-- version 3.1.1
+-- http://www.phpmyadmin.net
+--
+-- Gazda: localhost
+-- Timp de generare: 20 Dec 2008 la 23:53
+-- Versiune server: 5.1.30
+-- Versiune PHP: 5.2.8
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+--
+-- Baza de date: `ftbf`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_alltags`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_alltags` (
+  `tag` varchar(20) NOT NULL,
+  `hits` int(5) NOT NULL DEFAULT '1',
+  UNIQUE KEY `tag` (`tag`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `ftbf_alltags`
+--
+
+INSERT INTO `ftbf_alltags` (`tag`, `hits`) VALUES
+('cfr cluj', 1),
+('fc vaslui', 1),
+('steaua', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_bugete`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_bugete` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id_user` int(5) NOT NULL,
+  `cont` float NOT NULL,
+  `data` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_bugete`
+--
+
+INSERT INTO `ftbf_bugete` (`id`, `id_user`, `cont`, `data`) VALUES
+(1, 1, 0, 1213650000),
+(2, 1, 20, 1214859600),
+(3, 1, 19, 1215464400),
+(4, 1, 18, 1215810000),
+(5, 1, 17, 1216414800),
+(6, 1, 16, 1217451600),
+(7, 1, 15, 1218056400),
+(8, 1, 23, 1218661200),
+(11, 1, 40, 1219661200);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_comentarii`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_comentarii` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id_obj` int(5) NOT NULL,
+  `obj` varchar(10) NOT NULL,
+  `data` int(10) NOT NULL,
+  `bad` int(5) NOT NULL,
+  `good` int(5) NOT NULL,
+  `user` varchar(40) NOT NULL,
+  `body` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_comentarii`
+--
+
+INSERT INTO `ftbf_comentarii` (`id`, `id_obj`, `obj`, `data`, `bad`, `good`, `user`, `body`) VALUES
+(1, 1, 'stiri', 1216118304, 3, 2, 'buddha', 'Ana are mere'),
+(2, 1, 'stiri', 1216159201, 11, 1, 'buddha', 'ma scuzati, vroiam sa zic bla bla bla'),
+(3, 1, 'stiri', 1216453277, 0, 1, 'eu', 'sadasd'),
+(11, 59, 'foto', 1217657236, 0, 0, 'buddha', 'asdsahkjdskdsa'),
+(12, 27, 'foto_foto', 1217658688, 0, 0, 'buddha', 'asdadasdasd'),
+(13, 30, 'foto_foto', 1217658847, 0, 0, 'buddha', 'asdasdasdd'),
+(14, 36, 'foto_foto', 1217660258, 0, 0, 'buddha', 'sadadsiuddsa'),
+(19, 60, 'foto', 1219394966, 0, 0, 'buddha', 'asdasd'),
+(20, 31, 'foto_foto', 1219394981, 0, 0, 'buddha', 'nu se vede !'),
+(24, 10, 'stiri', 1186125800, 0, 0, 'buddha', 'da, sigur...'),
+(25, 62, 'foto', 1217836933, 0, 0, 'buddha', 'cool');
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_facilitati`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_facilitati` (
+  `id` int(1) NOT NULL AUTO_INCREMENT,
+  `lastNNews` varchar(2) NOT NULL,
+  `val_max_castig` float NOT NULL,
+  `val_max_user` varchar(40) NOT NULL,
+  `max_logged_users` int(5) NOT NULL,
+  `max_logged_date` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_facilitati`
+--
+
+INSERT INTO `ftbf_facilitati` (`id`, `lastNNews`, `val_max_castig`, `val_max_user`, `max_logged_users`, `max_logged_date`) VALUES
+(1, '5', 8.982, 'buddha', 5, 1217443231);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_forum_categs`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_forum_categs` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `order` int(2) NOT NULL,
+  `titlu` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_forum_categs`
+--
+
+INSERT INTO `ftbf_forum_categs` (`id`, `order`, `titlu`) VALUES
+(1, 1, 'Discutii generale legate de fotbalul romanesc'),
+(2, 2, 'Campionatul de fotbal din toate diviziile');
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_forum_forums`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_forum_forums` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id_categ` int(5) NOT NULL,
+  `titlu` varchar(50) NOT NULL,
+  `comentariu` varchar(100) NOT NULL,
+  `ID_lastPost` int(5) NOT NULL,
+  `nrTopics` int(5) NOT NULL,
+  `nrPosts` int(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_forum_forums`
+--
+
+INSERT INTO `ftbf_forum_forums` (`id`, `id_categ`, `titlu`, `comentariu`, `ID_lastPost`, `nrTopics`, `nrPosts`) VALUES
+(1, 1, 'Echipa Nationala', 'Primii 11', 4, 2, 4),
+(2, 1, 'Fotbalisti rom√¢ni', '(nu toti; cei mai importanti)', 0, 0, 0),
+(3, 1, 'Echipe Romanesti', 'blaturi', 0, 0, 0),
+(4, 2, 'Liga I Burger', 'Becali, Paszcany (aia cu multi bani)', 0, 0, 0),
+(5, 2, 'Liga a II-a seria I', '    ¬ ¬ ', 0, 0, 0),
+(6, 2, 'Liga a II-a, seria a II-a', '   ¬ ', 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_forum_posts`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_forum_posts` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id_topic` int(5) NOT NULL,
+  `autor` varchar(40) NOT NULL,
+  `body` text NOT NULL,
+  `data` int(10) NOT NULL,
+  `titlu` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_forum_posts`
+--
+
+INSERT INTO `ftbf_forum_posts` (`id`, `id_topic`, `autor`, `body`, `data`, `titlu`) VALUES
+(1, 1, 'buddha', 'Eu cred ca Hagi a fost bla bla, nu?', 1216843516, 'Re: Gheorghe Hagi'),
+(2, 1, 'buddha', '[quote autor="buddha" link="1#post1"]Eu cred ca Hagi a fost bla bla, nu?[/quote]\r\n\r\nDa, ma, intr-adevar;  Hagi a fost bla bla bla...', 1216843516, 'Re: Gheorghe Hagi'),
+(3, 1, 'diesel', '[b]Exact, exact[/b]', 1217843516, 'Re: Gheorghe Hagi'),
+(4, 1, 'buddha', '[quote autor="diesel" link="1#post3"][b]Exact, exact[/b][/quote]', 1229809861, 'Re: Gheorghe Hagi');
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_forum_topics`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_forum_topics` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id_forums` int(5) NOT NULL,
+  `titlu` varchar(50) NOT NULL,
+  `starter` varchar(40) NOT NULL,
+  `replici` int(5) NOT NULL,
+  `vizualizari` int(5) NOT NULL,
+  `ID_lastPost` int(5) NOT NULL,
+  `data` int(10) NOT NULL,
+  `stare` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_forum_topics`
+--
+
+INSERT INTO `ftbf_forum_topics` (`id`, `id_forums`, `titlu`, `starter`, `replici`, `vizualizari`, `ID_lastPost`, `data`, `stare`) VALUES
+(1, 1, 'Gheorghe Hagi', 'buddha', 4, 0, 4, 1219482182, 'deschis'),
+(3, 1, 'asdaksdbaskd', 'buddha', 0, 1, 0, 1217430867, 'deschis');
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_fotos`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_fotos` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id_galery` int(5) NOT NULL,
+  `img` text NOT NULL,
+  `thumb` text NOT NULL,
+  `urcat_de` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_fotos`
+--
+
+INSERT INTO `ftbf_fotos` (`id`, `id_galery`, `img`, `thumb`, `urcat_de`) VALUES
+(17, 0, '', '', ''),
+(39, 62, 'images/foto/11_thumb_1.jpeg', 'images/foto/11_thumb_1_thumb_2.jpeg', ''),
+(41, 62, 'images/foto/13_thumb_1.jpeg', 'images/foto/13_thumb_1_thumb_2.jpeg', ''),
+(42, 62, 'images/foto/14_thumb_1.jpeg', 'images/foto/14_thumb_1_thumb_2.jpeg', ''),
+(43, 62, 'images/foto/15_thumb_1.jpeg', 'images/foto/15_thumb_1_thumb_2.jpeg', ''),
+(46, 63, 'images/foto/8_thumb_1.jpeg', 'images/foto/8_thumb_1_thumb_2.jpeg', ''),
+(47, 63, 'images/foto/9_thumb_1.jpeg', 'images/foto/9_thumb_1_thumb_2.jpeg', ''),
+(48, 63, 'images/foto/10_thumb_1.jpeg', 'images/foto/10_thumb_1_thumb_2.jpeg', ''),
+(49, 63, 'images/foto/11_thumb_1.jpeg', 'images/foto/11_thumb_1_thumb_2.jpeg', ''),
+(50, 62, 'images/foto/9_thumb_1.jpeg', 'images/foto/9_thumb_1_thumb_2.jpeg', ''),
+(51, 62, 'images/foto/10_thumb_1.jpeg', 'images/foto/10_thumb_1_thumb_2.jpeg', '');
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_foto_galery`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_foto_galery` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `titlu` text NOT NULL,
+  `data` int(10) NOT NULL,
+  `media` float NOT NULL,
+  `votanti` int(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_foto_galery`
+--
+
+INSERT INTO `ftbf_foto_galery` (`id`, `titlu`, `data`, `media`, `votanti`) VALUES
+(62, 'Galerie Foto', 1217836723, 0, 0),
+(63, 'Inca o galerie foto', 1217837073, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_ignore`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_ignore` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `from` varchar(40) NOT NULL,
+  `to` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_ignore`
+--
+
+INSERT INTO `ftbf_ignore` (`id`, `from`, `to`) VALUES
+(2, 'buddha', 'alex');
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_mecistats`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_mecistats` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id_meci` int(5) NOT NULL,
+  `goluri1` int(2) NOT NULL,
+  `goluri2` int(2) NOT NULL,
+  `suturi1` int(2) NOT NULL,
+  `suturi2` int(2) NOT NULL,
+  `spp1` int(2) NOT NULL,
+  `spp2` int(2) NOT NULL,
+  `faulturi1` int(2) NOT NULL,
+  `faulturi2` int(2) NOT NULL,
+  `cgalbene1` int(2) NOT NULL,
+  `cgalbene2` int(2) NOT NULL,
+  `crosii1` int(2) NOT NULL,
+  `crosii2` int(2) NOT NULL,
+  `cornere1` int(2) NOT NULL,
+  `cornere2` int(2) NOT NULL,
+  `offsides1` int(2) NOT NULL,
+  `offsides2` int(2) NOT NULL,
+  `posesie1` int(2) NOT NULL,
+  `posesie2` int(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_mecistats`
+--
+
+INSERT INTO `ftbf_mecistats` (`id`, `id_meci`, `goluri1`, `goluri2`, `suturi1`, `suturi2`, `spp1`, `spp2`, `faulturi1`, `faulturi2`, `cgalbene1`, `cgalbene2`, `crosii1`, `crosii2`, `cornere1`, `cornere2`, `offsides1`, `offsides2`, `posesie1`, `posesie2`) VALUES
+(1, 2, 2, 1, 5, 4, 3, 1, 7, 5, 2, 1, 0, 0, 4, 2, 2, 0, 54, 46),
+(2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(5, 1, 2, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 50);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_meciuri`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_meciuri` (
+  `id_meci` int(5) NOT NULL AUTO_INCREMENT,
+  `are_rezultat` tinyint(1) NOT NULL,
+  `data_start` int(10) NOT NULL,
+  `data_sfarsit` int(10) NOT NULL,
+  `data_meci` int(10) NOT NULL,
+  `echipa_gazda` varchar(40) NOT NULL,
+  `echipa_oaspete` varchar(40) NOT NULL,
+  `cota1` varchar(5) NOT NULL,
+  `cotax` varchar(5) NOT NULL,
+  `cota2` varchar(5) NOT NULL,
+  `rezultat1` int(2) NOT NULL,
+  `rezultat2` int(2) NOT NULL,
+  `data` int(5) NOT NULL,
+  PRIMARY KEY (`id_meci`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_meciuri`
+--
+
+INSERT INTO `ftbf_meciuri` (`id_meci`, `are_rezultat`, `data_start`, `data_sfarsit`, `data_meci`, `echipa_gazda`, `echipa_oaspete`, `cota1`, `cotax`, `cota2`, `rezultat1`, `rezultat2`, `data`) VALUES
+(1, 0, 1217624400, 1217724400, 1217724400, 'Rapid Bucuresti', 'Steaua Bucuresti', '1.54', '1.77', '1.98', 2, 5, 0),
+(2, 1, 1215723600, 1216245601, 1215982800, 'Rapid Bucuresti', 'Beitar Ierusalim', '1.77', '2.50', '2.79', 2, 1, 0),
+(6, 0, 1217710800, 1218142800, 1218142800, 'Politehnica Iasi', 'Steaua Bucuresti', '2.23', '1.87', '1.23', 0, 0, 1217835065),
+(7, 0, 1217710800, 1218142800, 1218142800, 'FC Vaslui', 'Gloria Bistrita', '1.44', '1.77', '1.99', 0, 0, 1217835275),
+(8, 0, 1217710800, 1218229200, 1218229200, 'Universitatea Craiova', 'Farul Constanta', '1.22', '1.33', '1.44', 0, 0, 1217835406),
+(9, 0, 1217710800, 1218229200, 1218229200, 'Gaz Metan Medias', 'Politehnica Timisoara', '3.22', '2.76', '1.21', 0, 0, 1217835486),
+(10, 0, 1217710800, 1218229200, 1218229200, 'Gloria Buzau', 'Otelul Galati', '2.23', '1.78', '1.67', 0, 0, 1217835567),
+(11, 0, 1217710800, 1218229200, 1218229200, 'Rapid Bucuresti', 'CFR Cluj', '1.77', '1.76', '1.75', 0, 0, 1217835650),
+(12, 0, 1217710800, 1218315600, 1218315600, 'Pandurii Tg. Jiu', 'Unirea Urziceni', '2.76', '1.98', '1.44', 0, 0, 1217835747),
+(13, 0, 1217710800, 1218315600, 1218315600, 'CS Otopeni', 'Dinamo Bucuresti', '3.45', '2.34', '1.54', 0, 0, 1217836589),
+(14, 0, 1208293200, 1207688400, 1199138400, 'FC Badeana', 'FCM Zorleni', '2', '2.45', '2.34', 0, 0, 1229809331);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_newsletters`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_newsletters` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `titlu` text NOT NULL,
+  `body` text NOT NULL,
+  `data` int(10) NOT NULL,
+  `data_adaugare` int(10) NOT NULL,
+  `trimis` tinyint(1) NOT NULL,
+  `proposer` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_newsletters`
+--
+
+INSERT INTO `ftbf_newsletters` (`id`, `titlu`, `body`, `data`, `data_adaugare`, `trimis`, `proposer`) VALUES
+(1, 'News asdadads', 'asdkasnd sd asd asdlasd jlas djla sd a jsdjl ad lad a da sdjasd', 1217837171, 1217837171, 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_newsusers`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_newsusers` (
+  `email` varchar(40) NOT NULL,
+  `data` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `ftbf_newsusers`
+--
+
+INSERT INTO `ftbf_newsusers` (`email`, `data`) VALUES
+('asta@asta.asta', 1215891510),
+('mircea.ulinic@yahoo.com', 1216043414);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_note_comm`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_note_comm` (
+  `id_comentariu` int(5) NOT NULL,
+  `id_user` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `ftbf_note_comm`
+--
+
+INSERT INTO `ftbf_note_comm` (`id_comentariu`, `id_user`) VALUES
+(3, 1),
+(1, 1),
+(2, 1),
+(11, 1),
+(12, 1),
+(13, 1),
+(14, 1),
+(19, 1),
+(20, 1),
+(24, 1),
+(25, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_pariuri`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_pariuri` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id_meci` int(5) NOT NULL,
+  `id_user` int(5) NOT NULL,
+  `cota` varchar(1) NOT NULL,
+  `data` int(10) NOT NULL,
+  `id_bilet` int(5) NOT NULL,
+  `verificat` tinyint(1) NOT NULL DEFAULT '0',
+  `castigator` tinyint(1) NOT NULL,
+  `castig` varchar(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_pariuri`
+--
+
+INSERT INTO `ftbf_pariuri` (`id`, `id_meci`, `id_user`, `cota`, `data`, `id_bilet`, `verificat`, `castigator`, `castig`) VALUES
+(4, 1, 1, 'x', 1216118304, 1, 1, 0, ''),
+(5, 2, 1, '1', 1216118304, 1, 1, 0, ''),
+(6, 3, 1, '2', 1216118304, 1, 1, 0, ''),
+(7, 1, 1, '2', 1216118304, 2, 1, 1, ''),
+(8, 2, 1, '1', 1216118304, 2, 1, 1, ''),
+(9, 3, 1, '1', 1216118304, 2, 1, 1, ''),
+(10, 4, 1, 'x', 1216147648, 2, 1, 1, ''),
+(13, 2, 1, 'x', 1216118304, 4, 0, 0, ''),
+(17, 5, 13, '2', 1217663194, 1, 1, 1, ''),
+(18, 1, 13, '2', 1217663495, 1, 1, 1, ''),
+(19, 4, 13, 'x', 1217663510, 1, 1, 1, '');
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_pms`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_pms` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `from` varchar(40) NOT NULL,
+  `to` varchar(40) NOT NULL,
+  `mesaj` text NOT NULL,
+  `stare` varchar(20) NOT NULL,
+  `citit` tinyint(1) NOT NULL,
+  `data` int(10) NOT NULL,
+  `titlu` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_pms`
+--
+
+INSERT INTO `ftbf_pms` (`id`, `from`, `to`, `mesaj`, `stare`, `citit`, `data`, `titlu`) VALUES
+(23, 'asta', 'buddha', 'asdasdads', 'trimis', 1, 1216540215, 'titlu2'),
+(24, 'pulea', 'buddha', 'azi sunt prost', 'netrimis', 0, 1216540275, 'titlu3'),
+(25, 'buddha', 'asdasda', 'asdasdasd as d asd a sd as d as d as das dasd', 'trimis', 1, 1216118304, 'asasdasd  asdadssd'),
+(26, 'buddha', 'asdasdasd', 'asdasda sd as d asd  asdasd', 'netrimis', 0, 1219404528, 'asdasdas da sd a sd a'),
+(27, 'buddha', 'alex', '', '', 1, 1217797778, 'asdasd  asd a sdas'),
+(28, 'diesel', 'buddha', 'sadasbdasbkd asd as djka sdasd asd kas da dasd', '', 1, 1217843638, 'hahahahah asdad d asd');
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_propuneri`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_propuneri` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `proposer` varchar(40) NOT NULL,
+  `ce_propune` varchar(10) NOT NULL,
+  `titlu` varchar(50) NOT NULL,
+  `continut` text NOT NULL,
+  `img` text NOT NULL,
+  `thumb` text NOT NULL,
+  `id_obj` int(5) NOT NULL,
+  `unde` varchar(20) NOT NULL,
+  `data` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_propuneri`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_stiri`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_stiri` (
+  `id_stire` int(5) NOT NULL,
+  `titlu` text NOT NULL,
+  `continut` text NOT NULL,
+  `data` int(10) NOT NULL,
+  `img` text NOT NULL,
+  `votanti` int(5) NOT NULL DEFAULT '0',
+  `media` float NOT NULL DEFAULT '0',
+  `dataMare` int(10) NOT NULL,
+  `vizionari` int(5) NOT NULL,
+  `proposer` varchar(40) NOT NULL,
+  `sursa` text NOT NULL,
+  PRIMARY KEY (`id_stire`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `ftbf_stiri`
+--
+
+INSERT INTO `ftbf_stiri` (`id_stire`, `titlu`, `continut`, `data`, `img`, `votanti`, `media`, `dataMare`, `vizionari`, `proposer`, `sursa`) VALUES
+(1, 'Valiza de retur! Becali pune 16 mil euro la bataie contra lui Dinamo!', 'Lovit din toate partile in scandalul valiza, Gigi Becali nu se potoleste - anunta public ca din retur premiaza toate echipele care o bat pe Dinamo. 16 milioane de euro pune la bataie. Rivalii de la Dinamo socheaza si ei. Borcea nu vrea ka Steaua sa fie trimisa in B. Pro Sport a aflat ca bulgarii de la TSKA Sofia, prietenii Stelei, il cheama pe Becali sa investeasca la ei.\r\n\r\nSteaua nu se va duce in B, iar Becali - niciodata la puscarie - e sigur pe el seful din Ghencea. Dupa doua zile in care a stat la cutie si a ascultat toate vestile apocaliptice despre el si Steaua, a iesit cu o declaratie bomba la sport.ro.\r\n\r\nBorcea accepta provocarea si nu vrea ca Steaua sa fie retrogradata. "Rau cu rau, dar mai rau e fara rau" - spune rivalul Borcea.\r\n\r\nBecali e convins ca Steaua va scapa doar cu o amenda. Mitica spune insa ca Steaua se va prabusi daca va fi demonstrata mita. DNA-ul va incerca sa demonstreze in instanta ca jucatorii de la U Cluj, carora Becali le-a oferit bani, sunt functionari publici. Doar asa ar fi acuzat de mita. ', 1229807266, 'images/stiri/1_thumb_1.jpeg', 1, 72, 1229807266, 0, '', ''),
+(2, 'Nicio retrogradare! Goian: "Vreau titlul mai mult ca oricine"', 'Goian, primul om din Ghencea care ar accepta sa joace si in B cu Steaua, se gandeste mai mult la titlu decat la retrogradarea Stelei.\r\n\r\n"Imi doresc mai mult decat oricine sa devin campion" - e dorinta lui Goian pentru noul an. Ioan Becali vrea imposibilul - Steaua si Dinamo sa-si imparta ... primul loc.\r\n\r\nAles cel mai bun fotbalist roman in 2008 de fanii care au votat pe sport.ro, Goian vrea sa fie primul si la anul - cu Steaua. Numai sa nu se transfere pana atunci sau Steaua sa nu fie retrogradata dupa scandalul valiza.\r\n\r\nFan al lui Dinamo, dar si apropiat de Steaua varului Gigi, Ioan Becali are o varianta SF - ca marile rivale sa ia titlul in acelasi timp. ', 1229807365, 'images/stiri/2_thumb_1.jpeg', 0, 0, 1229807365, 0, '', ''),
+(3, 'Presiune pe Piturca: Boloni, din vara la nationala?', 'In pericol sa ajunga la inchisoare in scandalul valiza, Piturca ar putea fi inlocuit la nationala cu... Boloni.\r\n\r\nIn ultima vreme, Nasul Sandu il lauda tot mai tare pe romanul de la Standard Liege. A uitat ca Boloni a lasat balta nationala in 2001 si a fugit la Sporting.\r\n\r\nLa inceputul lui ianuarie, ca si Becali, Piturca e chemat la tribunalul din Cluj - selectionerul a fost chemat in instanta, fiind acuzat de favorizarea infractorului. ', 1229807457, 'images/stiri/3_thumb_1.jpeg', 0, 0, 1229807457, 0, '', ''),
+(4, 'Steaua, egala lui Liverpool, Timisoara peste Barcelona, a 4-a in Europa', 'ntr-un sezon in care Steaua si-a schimbat de doua ori antrenorul si a iesit din Champions League cu doar un singur punct acumulat, exista si topuri pozitive pentru trupa lui Lacatus.\r\n\r\nCu Stancu, Arthuro si Kapetanos atacanti, Steaua nu s-a tinut prea bine pe picioare in acest sezon pe plan ofensiv. Are 24 de goluri marcate in turul Ligii I si doar 3 in UEFA Champions League.\r\n\r\nUn clasament arata ca Steaua a fost letala in ultimele 10 minute din meci, unde a marcat 8 din cele 24 de goluri. Conform acestei statistici, Steaua se claseaza pe locul 14 in Europa, la egalitate cu echipe precul Liverpool, Werder, Lazio si Glasgow Rangers.\r\n\r\nMarea surpriza a Romaniei vine de la Timisoara, unde Poli e a 4-a echipa din Europa in clasamentul trupelor care au marcat in ultimele 10 minute ale partidelor disputate. Peste nume grele, ca Barcelona, Valencia sau Atletico Madrid, Timisoara a reusit sa inscrie 10 goluri in ultimele 10 minute ale meciurilor, din cele 32 marcate in campionat. ', 1229807582, 'images/stiri/4_thumb_1.jpeg', 0, 0, 1229807582, 0, '', ''),
+(5, 'Victoras Iacob la Salernitana?', 'Dat afara de Kaiserslautern, fostul stelist Iacob ar putea ajunge la Salernitana, in Serie B.Victoras Iacob isi amana revenirea in Liga lui Mitica. Atacantul care a ajucat doar doua meciuripentru nemtii de la Kaiserslautern este la un pas de a semna cu italienii de la Salernitana.Ziare.com anunta ca Iacob va merge in cateva zile sa negocieze contractul cu italienii.Iacob ar putea primi 200.000 de euro pe sezon si va semna un acord pentru doi ani, noteaza sursacitata. Iacob a avut mai multe oferte din Liga lui Mitica dupa despartirea de nemti: Craiova, Otelul sauVaslui au fost cateva dintre echipele care l-au vrut pe ‚ÄúJancker‚Äù de Romania.Salernitana este abia pe locul 17 din Serie B si se bate pentru supravietuirea in a doua ligaitaliana.', 1229807861, 'images/stiri/5_thumb_1.jpeg', 0, 0, 1229807861, 0, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_tags`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_tags` (
+  `id_tag` int(5) NOT NULL AUTO_INCREMENT,
+  `tag` varchar(20) NOT NULL,
+  `obj` varchar(10) NOT NULL,
+  `id_obj` int(5) NOT NULL,
+  `hits` int(5) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id_tag`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_tags`
+--
+
+INSERT INTO `ftbf_tags` (`id_tag`, `tag`, `obj`, `id_obj`, `hits`) VALUES
+(1, 'fc vaslui', 'stiri', 9, 1),
+(2, 'steaua', 'stiri', 6, 1),
+(3, 'steaua', 'stiri', 5, 1),
+(4, 'steaua', 'stiri', 11, 2),
+(5, 'cfr cluj', 'stiri', 8, 1),
+(6, '', 'stiri', 1, 1),
+(7, '', 'stiri', 2, 1),
+(8, '', 'stiri', 3, 1),
+(9, '', 'stiri', 4, 1),
+(10, '', 'stiri', 5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_users`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_users` (
+  `user` varchar(40) CHARACTER SET utf8 COLLATE utf8_romanian_ci NOT NULL,
+  `parola` varchar(32) NOT NULL,
+  `email` varchar(40) NOT NULL,
+  `random` varchar(5) NOT NULL DEFAULT '',
+  `ip` varchar(15) NOT NULL DEFAULT '',
+  `confirmReset` tinyint(1) NOT NULL DEFAULT '1',
+  `randConfirm` varchar(5) NOT NULL,
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `rank` int(1) NOT NULL DEFAULT '1',
+  `adresa` varchar(40) NOT NULL,
+  `cod` int(6) NOT NULL,
+  `nume` varchar(40) NOT NULL,
+  `actiuni` int(4) NOT NULL,
+  `cont` float NOT NULL,
+  `lastLogin` int(10) NOT NULL,
+  `lastLogout` int(10) NOT NULL,
+  `idLastBilet` int(5) NOT NULL,
+  `data_inscriere` int(10) NOT NULL,
+  `castig_posibil` float NOT NULL,
+  `biletul_valoros` float NOT NULL,
+  `posturi` int(5) NOT NULL,
+  `semnatura` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user` (`user`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_users`
+--
+
+INSERT INTO `ftbf_users` (`user`, `parola`, `email`, `random`, `ip`, `confirmReset`, `randConfirm`, `id`, `rank`, `adresa`, `cod`, `nume`, `actiuni`, `cont`, `lastLogin`, `lastLogout`, `idLastBilet`, `data_inscriere`, `castig_posibil`, `biletul_valoros`, `posturi`, `semnatura`) VALUES
+('buddha', 'cc809d3850fb3735ac95a6559e5ea192', 'mircea.ulinic@gmail.com', '0ec52', '', 1, 'adcde', 1, 3, 'str. Frunzelor', 731156, 'Mircea Ulinic', 15, 40, 1229809833, 0, 2, 0, 45.513, 8.982, 3, 'semnatura mea...'),
+('alex', '0d9493318690f659dffdcff24aed6c61', 'alex.alex@yahoo.com', 'a62dd', '', 1, '', 12, 2, 'asdasd asdasdasd a sd asd', 731156, 'asdasdasdasdasd', 4, 0, 1217844716, 1217845547, 0, 1216804427, 0, 0, 4, ''),
+('diesel', '2089549b15109a01a4f4350439d7b7b8', 'diesel@yahoo.com', 'c7217', '', 1, '', 13, 1, '', 0, '', 1, 0, 1217843464, 1217843653, 0, 1217843454, 0, 0, 1, '');
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_vizionari`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_vizionari` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `obj` varchar(20) NOT NULL,
+  `id_obj` int(5) NOT NULL,
+  `ip` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+
+--
+-- Salvarea datelor din tabel `ftbf_vizionari`
+--
+
+INSERT INTO `ftbf_vizionari` (`id`, `obj`, `id_obj`, `ip`) VALUES
+(1, 'stiri', 1, 2130706433),
+(2, 'forum', 1, 2130706433),
+(3, 'stiri', 3, 2130706433),
+(4, 'stiri', 5, 2130706433),
+(5, 'stiri', 0, 2130706433),
+(6, 'stiri', 2, 2130706433),
+(7, 'forum', 7, 2130706433),
+(8, 'forum', 2, 2130706433),
+(9, 'forum', 4, 2130706433),
+(10, 'forum', 11, 2130706433),
+(11, 'forum', 12, 2130706433),
+(12, 'forum', 9, 2130706433),
+(13, 'forum', 13, 2130706433),
+(14, 'forum', 14, 2130706433),
+(15, 'forum', 15, 2130706433),
+(16, 'forum', 16, 2130706433),
+(17, 'forum', 17, 2130706433),
+(18, 'forum', 18, 2130706433),
+(19, 'forum', 19, 2130706433),
+(20, 'forum', 20, 2130706433),
+(21, 'forum', 21, 2130706433),
+(22, 'forum', 22, 2130706433),
+(23, 'stiri', 4, 2130706433),
+(24, 'stiri', 6, 2130706433),
+(25, 'stiri', 7, 2130706433),
+(26, 'stiri', 8, 2130706433),
+(27, 'stiri', 9, 2130706433),
+(28, 'stiri', 10, 2130706433),
+(29, 'forum', 3, 2130706433),
+(30, 'stiri', 11, 2130706433);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftbf_voturi`
+--
+
+CREATE TABLE IF NOT EXISTS `ftbf_voturi` (
+  `obj` varchar(20) NOT NULL,
+  `id_obj` int(5) NOT NULL,
+  `id_user` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Salvarea datelor din tabel `ftbf_voturi`
+--
+
+INSERT INTO `ftbf_voturi` (`obj`, `id_obj`, `id_user`) VALUES
+('stiri', 4, 1),
+('stiri', 4, 12),
+('stiri', 5, 1),
+('stiri', 2, 1),
+('stiri', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structura de tabel pentru tabelul `ftfb_usertags`
+--
+
+CREATE TABLE IF NOT EXISTS `ftfb_usertags` (
+  `id_tag` int(5) NOT NULL AUTO_INCREMENT,
+  `tag` varchar(20) NOT NULL,
+  `obj` varchar(10) NOT NULL,
+  `id_user` int(5) NOT NULL,
+  `hits` int(5) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id_tag`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Salvarea datelor din tabel `ftfb_usertags`
+--
+
+INSERT INTO `ftfb_usertags` (`id_tag`, `tag`, `obj`, `id_user`, `hits`) VALUES
+(1, 'fc vaslui', 'stiri', 1, 1),
+(2, 'steaua', 'stiri', 1, 12),
+(3, 'cfr cluj', 'stiri', 1, 1),
+(4, '', 'stiri', 1, 35),
+(5, '', 'stiri', 0, 9);
